@@ -1,0 +1,38 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+# Set up the Selenium webdriver
+#driver = webdriver.Chrome('C:/Users/gulan/PycharmProjects/pythonProject/Driver')  # Replace with the path to your chromedriver executable
+driver = webdriver.Chrome()
+# Navigate to the Facebook login page
+driver.get('https://www.facebook.com')
+
+# Find the email and password input fields and enter your login credentials
+wait = WebDriverWait(driver, 2)
+email_field = wait.until(EC.presence_of_element_located((By.ID, 'email')))
+email_field.send_keys('6382815073')
+
+password_field = wait.until(EC.presence_of_element_located((By.ID, 'pass')))
+password_field.send_keys('Premala1080')
+
+# Submit the login form
+password_field.send_keys(Keys.RETURN)
+
+# Wait for the page to load after login
+wait = WebDriverWait(driver, 2)
+wait.until(EC.title_contains('Facebook'))
+wait = WebDriverWait(driver, 10)
+
+# Perform your testing actions here
+# For example, you can check if a specific element is present on the page after login
+is_element_present = EC.presence_of_element_located((By.XPATH, "//div[@class='x6s0dn4 x9f619 x78zum5 x1iyjqo2 x1s65kcs x1d52u69 xixxii4 x17qophe x13vifvy xzkaem6']"))
+if is_element_present(driver):
+    print("Login successful")
+else:
+    print("Login failed")
+
+
+driver.quit()
